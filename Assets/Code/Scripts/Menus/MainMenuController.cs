@@ -1,41 +1,30 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class MainMenuController : MonoBehaviour
 {
-    [Header("Dependencies")]
-    [SerializeField] private Button StartButton;
-    [SerializeField] private Button ExitButton;
-
     private AsyncOperation asyncOperation;
+    private bool gameReady = false;
+    private DefaultInputSystem inputSystem;
 
     private void Awake()
     {
-        if (StartButton != null)
-        {
-            StartButton.interactable = false;
-            StartButton.onClick.AddListener(StartGame);
-        }
-
+        // Start loading the game scene in the background
         StartCoroutine(LoadGameAsync());
     }
 
     private void OnEnable()
     {
-        if (ExitButton != null)
-        {
-            ExitButton.onClick.AddListener(ExitGame);
-        }
+        inputSystem = new DefaultInputSystem();
+        inputSystem.Enable();
+        inputSystem.Menu.Start.performed += StartGame;
     }
 
     private void OnDisable()
     {
-        if (ExitButton != null)
-        {
-            ExitButton.onClick.RemoveListener(ExitGame);
-        }
+        inputSystem.Disable();
     }
 
     private IEnumerator LoadGameAsync()
@@ -43,7 +32,6 @@ public class MainMenuController : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
-
         asyncOperation = SceneManager.LoadSceneAsync(nextSceneIndex);
         asyncOperation.allowSceneActivation = false;
 
@@ -51,8 +39,7 @@ public class MainMenuController : MonoBehaviour
         {
             if (asyncOperation.progress >= 0.9f)
             {
-                if (StartButton != null)
-                    StartButton.interactable = true;
+                gameReady = true;
                 yield break;
             }
 
@@ -60,7 +47,7 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    private void StartGame()
+    private void StartGame(InputAction.CallbackContext context)
     {
         if (asyncOperation != null && !asyncOperation.allowSceneActivation)
         {
@@ -68,7 +55,7 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    private void ExitGame()
+    public void ExitGame()
     {
         Application.Quit();
     }
