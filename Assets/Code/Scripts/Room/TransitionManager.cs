@@ -36,7 +36,7 @@ public class TransitionManager : MonoBehaviour
 
         // Fade back to white
         transitionAnimator.SetTrigger("ToWhite");
-        yield return new WaitForSeconds(transitionTime);
+        //yield return new WaitForSeconds(transitionTime);
 
         if (playerCollider != null)
             playerCollider.enabled = true;
