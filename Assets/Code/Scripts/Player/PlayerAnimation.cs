@@ -23,4 +23,9 @@ public class PlayerAnimation : MonoBehaviour
         animator.SetFloat("Vertical", movementInput != Vector2.zero ? movementInput.y : lastDirection.y);
         animator.SetFloat("Speed", movementInput != Vector2.zero ? movementInput.sqrMagnitude : 0f);
     }
+
+    public void ResetAnim()
+    {
+        animator.SetFloat("Speed", 0f);
+    }
 }

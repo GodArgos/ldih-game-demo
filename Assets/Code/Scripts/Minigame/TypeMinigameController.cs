@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class TypeMinigameController : MonoBehaviour
@@ -23,6 +24,8 @@ public class TypeMinigameController : MonoBehaviour
     private bool gameEnded = false;
     private float timer = 0f;
 
+    public UnityEvent OnGameFinished;
+
     // Para animación de escritura
     private float lastTypedTime = 0f;
     private int lastCharCount = 0;
@@ -32,7 +35,6 @@ public class TypeMinigameController : MonoBehaviour
         minigameCanvas.SetActive(false);
         ResultCanvas.SetActive(false);
         timer = maxTime;
-        StartMinigame();
     }
 
     private void Update()
@@ -40,6 +42,11 @@ public class TypeMinigameController : MonoBehaviour
         if (!gameStarted || gameEnded) return;
 
         timer -= Time.deltaTime;
+
+        if (!GameManager.Instance.OnInteraction)
+        {
+            GameManager.Instance.OnInteraction = true;
+        }
 
         UpdateTimerDisplay();
 
@@ -117,6 +124,8 @@ public class TypeMinigameController : MonoBehaviour
     {
         ResultCanvas.SetActive(false);
         minigameCanvas.SetActive(false);
+        GameManager.Instance.OnInteraction = false;
+        OnGameFinished?.Invoke();
     }
 
     private void DetectTypingAnimation()

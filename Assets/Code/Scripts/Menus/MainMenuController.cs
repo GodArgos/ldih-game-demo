@@ -8,6 +8,7 @@ public class MainMenuController : MonoBehaviour
     private AsyncOperation asyncOperation;
     private bool gameReady = false;
     private DefaultInputSystem inputSystem;
+    public bool withButton = true;
 
     private void Awake()
     {
@@ -17,6 +18,7 @@ public class MainMenuController : MonoBehaviour
 
     private void OnEnable()
     {
+        if (!withButton) return;
         inputSystem = new DefaultInputSystem();
         inputSystem.Enable();
         inputSystem.Menu.Start.performed += StartGame;
@@ -48,6 +50,14 @@ public class MainMenuController : MonoBehaviour
     }
 
     private void StartGame(InputAction.CallbackContext context)
+    {
+        if (asyncOperation != null && !asyncOperation.allowSceneActivation)
+        {
+            asyncOperation.allowSceneActivation = true;
+        }
+    }
+
+    public void StartGamePublic()
     {
         if (asyncOperation != null && !asyncOperation.allowSceneActivation)
         {

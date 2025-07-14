@@ -29,6 +29,11 @@ public class PlayerController : MonoBehaviour
         fov.SetOrigin(transform.position);
     }
 
+    public void ResetAnimator()
+    {
+        playerAnimation.ResetAnim();
+    }
+
     private void FixedUpdate()
     {
         Vector2 movementInput = inputSystem.Player.Move.ReadValue<Vector2>();

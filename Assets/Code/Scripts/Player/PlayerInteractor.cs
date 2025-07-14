@@ -119,12 +119,12 @@ public class PlayerInteractor : MonoBehaviour
         }
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.red;
-    //    if (sourceTransform != null)
-    //    {
-    //        Gizmos.DrawRay(sourceTransform.position, lastDirection * interactionRange);
-    //    }
-    //}
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        if (sourceTransform != null)
+        {
+            Gizmos.DrawRay(sourceTransform.position, lastDirection * interactionRange);
+        }
+    }
 }
