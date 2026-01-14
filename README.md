@@ -27,6 +27,8 @@ Esto evita ver a través de paredes o dentro de habitaciones cerradas.
 ### 📌 Estado
 ✔ Prototipo completado
 
+![LDIH_1](MD_Resources/LDIH_1.png)
+![LDIH_2](MD_Resources/LDIH_3.png)
 ---
 
 ## 🇬🇧 English
@@ -55,3 +57,6 @@ This prevents the player from seeing through walls or into closed rooms.
 
 ### 📌 Status
 ✔ Completed prototype
+
+![LDIH_3](MD_Resources/LDIH_5.png)
+![LDIH_4](MD_Resources/LDIH_6.png)
